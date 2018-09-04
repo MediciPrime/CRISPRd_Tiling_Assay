@@ -17,7 +17,8 @@ transcript and disregard the genes that show up on the GTF file.
    + `awk '{ if ($0 ~ "transcript_id") print $0; else print $0" transcript_id \"\";"; }' gencodev22_all_annotations.gtf | gtf2bed - > gencodev22_all_annotations.bed`
 4. Modify the annotation bed file and extend UTR windows by 5kb to the left or right depending on strand orientation
    + The 'modify_anno' function is located in the 'pgRNA_creator.py' file, used to add 5kb windows
-5. Set up 'guidescan.sh' file in order to run GuideScan
+5. Run GuideScan using the following command:
+   + `guidescan_guidequery -b ../cas9_hg38_all_guides.bam --batch gencode_v22_lncRNA_transcripts.gtf --target flanking --flankdistance 1000 --sort offtargets -n 7 --annot gencodev22_all_annotations.bed --blat ~/miniconda3/envs/guidescan/bin/blat -o guidescan_out`
 6. Use the method 'pgRNA_clean' from 'pgRNA_creator.py' to create the pgRNA list ('pgRNA.txt') file.
 
 ### Initial Checks
